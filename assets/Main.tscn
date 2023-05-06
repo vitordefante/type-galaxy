@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Enemy.gd" type="Script" id=2]
+[ext_resource path="res://assets/SpaceMono-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/spaceshooter/Backgrounds/blue.png" type="Texture" id=4]
+[ext_resource path="res://assets/spaceshooter/Spritesheet/sheet.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+font_data = ExtResource( 3 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -16.0
+margin_top = -18.0
+margin_right = 1034.0
+margin_bottom = 612.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Enemy" type="Sprite" parent="."]
+position = Vector2( 781, 357 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 335, 309, 100, 75 )
+script = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Enemy"]
+margin_left = -90.0
+margin_top = 46.0
+margin_right = 85.0
+margin_bottom = 87.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Type This![/center]"
+text = "Type This!"
+scroll_active = false
+deselect_on_focus_loss_enabled = false
