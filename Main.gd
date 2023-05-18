@@ -13,6 +13,9 @@ var active_enemy = null
 #index da letra atual que necessita ser digitada
 var current_letter_index: int = -1
 
+#variavel da dificuldade
+var difficulty: int = 1
+
 #spawna um inimogo antes do timeout de 3 segundos
 func _ready() -> void:
 	randomize()
@@ -66,3 +69,12 @@ func spawn_enemy():
 	enemy_instance.global_position = spawns[index].global_position
 	enemy_container.add_child(enemy_instance)
 	
+
+# emite as mudancas na dificuldade ao decorrer da pontuacao
+func _on_DifficultyTimer_timeout():
+	difficulty += 1
+	GlobalSignals.emit_signal("difficulty_increased", difficulty)
+	print("dificuldade aumentada para %d" % difficulty)
+	var new_wait_time = spawn_timer.wait_time - 0.2
+	
+	spawn_timer.wait_time = clamp(new_wait_time, 1, spawn_timer.wait_time)

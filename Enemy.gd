@@ -13,11 +13,22 @@ onready var prompt_text = prompt.text
 func _ready() -> void:
 	prompt_text = ListaPalavras.get_prompt()
 	prompt.parse_bbcode(set_center_tags(prompt_text))
+	GlobalSignals.connect("difficulty_increased", self, "handle_difficulty_increased")
 	
 
 # warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
 	global_position.x -= speed
+	
+	
+func set_difficulty(difficulty: int):
+	pass
+		
+
+
+func handle_difficulty_increased(new_difficulty: int):
+	var new_speed = speed + (0.2 * new_difficulty)
+	speed = clamp(new_speed, speed, 3)
 
 
 func get_prompt() -> String:
