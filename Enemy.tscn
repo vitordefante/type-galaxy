@@ -13,14 +13,15 @@ position = Vector2( 835, 356 )
 scale = Vector2( 0.884956, 1.01333 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 111, 716, 113, 75 )
+region_rect = Rect2( 941, 912, 75, 112 )
 script = ExtResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = -70.5219
-margin_top = 46.0227
-margin_right = 66.4781
-margin_bottom = 75.0227
+margin_left = -88.14
+margin_top = 67.1055
+margin_right = 88.86
+margin_bottom = 96.1055
+rect_scale = Vector2( 1.12019, 1.0048 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]Type This![/center]"

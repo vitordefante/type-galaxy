@@ -21,23 +21,23 @@ __meta__ = {
 [node name="SpawnContainer" type="Node2D" parent="."]
 
 [node name="Position2D" type="Position2D" parent="SpawnContainer"]
-position = Vector2( 1028, 352 )
+position = Vector2( 1066, 275 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnContainer"]
-position = Vector2( 1029, 489 )
+position = Vector2( 1066, 482 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnContainer"]
-position = Vector2( 1028, 121 )
+position = Vector2( 1061, 63 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnContainer"]
-position = Vector2( 1031, 232 )
+position = Vector2( 1065, 156 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnContainer"]
-position = Vector2( 1028, 352 )
+position = Vector2( 1069, 414 )
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

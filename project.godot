@@ -14,6 +14,10 @@ config/name="Type-galaxy"
 run/main_scene="res://assets/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+ListaPalavras="*res://ListaPalavras.gd"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

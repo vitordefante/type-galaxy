@@ -4,12 +4,18 @@ export (Color) var blue = Color("#4682b4")
 export (Color) var green =  Color("#639765")
 export (Color) var red = Color("#a65455")
 
-export (float) var speed = 0.1
+export (float) var speed = 0.5
+
 
 onready var prompt = $RichTextLabel
 onready var prompt_text = prompt.text
 
+func _ready() -> void:
+	prompt_text = ListaPalavras.get_prompt()
+	prompt.parse_bbcode(set_center_tags(prompt_text))
+	
 
+# warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
 	global_position.x -= speed
 
@@ -24,7 +30,12 @@ func set_next_character(next_character_index: int):
 	var red_text = ""
 	if next_character_index != prompt_text.length():
 		red_text = get_bbcode_color_tag(red) + prompt_text.substr(next_character_index + 1, prompt_text.length() - next_character_index + 1) + get_bbcode_end_color_tag()
-	prompt.parse_bbcode("[center]" + blue_text + green_text + red_text + "[/center]")
+	prompt.parse_bbcode(set_center_tags(blue_text + green_text + red_text))
+
+
+func set_center_tags(string_to_center: String):
+	return "[center]" + string_to_center + "[/center]"
+
 
 #funcao para retornar a string com a tag da cor a ser usada
 func get_bbcode_color_tag(color: Color) -> String:
