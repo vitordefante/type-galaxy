@@ -6,6 +6,9 @@ onready var enemy_container = $EnemyContainer
 onready var spawn_container = $SpawnContainer
 onready var spawn_timer = $SpawnTimer
 
+onready var difficulty_value = $CanvasLayer/VBoxContainer/BottomRow/HBoxContainer/DifficultyLabel2
+onready var killed_value = $CanvasLayer/VBoxContainer/TopRow2/TopRow/EnemiesKilledValue
+
 
 # detecta naves ativas na cena
 var active_enemy = null
@@ -15,6 +18,9 @@ var current_letter_index: int = -1
 
 #variavel da dificuldade
 var difficulty: int = 0
+
+#naves matadas
+var enemies_killed: int = 0
 
 #spawna um inimogo antes do timeout de 3 segundos
 func _ready() -> void:
@@ -53,6 +59,8 @@ func _unhandled_input(event: InputEvent) -> void:
 					current_letter_index = -1
 					active_enemy.queue_free()
 					active_enemy = null
+					enemies_killed += 1
+					killed_value.text = str(enemies_killed)
 			else:
 				print("Voce digitou errado, letra %s ao invez de %s" % [key_typed, next_character])
 					
@@ -78,3 +86,16 @@ func _on_DifficultyTimer_timeout():
 	print("dificuldade aumentada para %d" % difficulty)
 	var new_wait_time = spawn_timer.wait_time - 0.2
 	spawn_timer.wait_time = clamp(new_wait_time, 1, spawn_timer.wait_time)
+	difficulty_value.text = str(difficulty)
+
+
+func _on_LoseArea_body_entered(body):
+	game_over()
+	
+func game_over():
+	#
+	start_game()
+		
+		
+func start_game():
+	pass

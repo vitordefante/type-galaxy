@@ -1,19 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/Minecraft.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://assets/spaceshooter/Spritesheet/sheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/spaceshooter/Spritesheet/pixel_spaceship.png" type="Texture" id=2]
 [ext_resource path="res://Enemy.gd" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
 font_data = ExtResource( 1 )
 
-[node name="Enemy" type="Sprite"]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 51.3724, 44.1942 )
+
+[node name="Enemy" type="KinematicBody2D"]
+use_parent_material = true
 position = Vector2( 835, 356 )
 scale = Vector2( 0.884956, 1.01333 )
-texture = ExtResource( 2 )
-region_enabled = true
-region_rect = Rect2( 941, 912, 75, 112 )
 script = ExtResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -28,3 +29,13 @@ bbcode_text = "[center]Type This![/center]"
 text = "Type This!"
 scroll_active = false
 deselect_on_focus_loss_enabled = false
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -6.51245, 3.93408 )
+rotation = -1.5708
+scale = Vector2( 0.168138, 0.244385 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -19.21, 3.94738 )
+shape = SubResource( 2 )
