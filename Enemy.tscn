@@ -9,7 +9,7 @@ size = 24
 font_data = ExtResource( 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 51.3724, 44.1942 )
+extents = Vector2( 66.3662, 51.316 )
 
 [node name="Enemy" type="KinematicBody2D"]
 use_parent_material = true
@@ -37,5 +37,6 @@ scale = Vector2( 0.168138, 0.244385 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -19.21, 3.94738 )
+position = Vector2( -4.21619, 2.96051 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 2 )

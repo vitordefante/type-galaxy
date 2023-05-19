@@ -5,10 +5,11 @@ var Enemy = preload("res://Enemy.tscn")
 onready var enemy_container = $EnemyContainer
 onready var spawn_container = $SpawnContainer
 onready var spawn_timer = $SpawnTimer
+onready var difficulty_timer = $DifficultyTimer
 
 onready var difficulty_value = $CanvasLayer/VBoxContainer/BottomRow/HBoxContainer/DifficultyLabel2
 onready var killed_value = $CanvasLayer/VBoxContainer/TopRow2/TopRow/EnemiesKilledValue
-
+onready var game_over_screen = $CanvasLayer/GameOverScreen 
 
 # detecta naves ativas na cena
 var active_enemy = null
@@ -24,9 +25,7 @@ var enemies_killed: int = 0
 
 #spawna um inimogo antes do timeout de 3 segundos
 func _ready() -> void:
-	randomize()
-	spawn_timer.start()
-	spawn_enemy()
+	start_game()
 
 func find_new_active_enemy(typed_character: String):
 	for enemy in enemy_container.get_children():
@@ -74,8 +73,8 @@ func spawn_enemy():
 	var enemy_instance = Enemy.instance()
 	var spawns = spawn_container.get_children()
 	var index = randi() % spawns.size()
-	enemy_container.add_child(enemy_instance)
 	enemy_instance.global_position = spawns[index].global_position
+	enemy_container.add_child(enemy_instance)
 	enemy_instance.set_difficulty(difficulty)
 	
 
@@ -93,9 +92,23 @@ func _on_LoseArea_body_entered(body):
 	game_over()
 	
 func game_over():
-	#
-	start_game()
-		
+	game_over_screen.show()
+	spawn_timer.stop()
+	difficulty_timer.stop()
+	difficulty
+	active_enemy = null
+	current_letter_index = -1
+	for enemy in enemy_container.get_children():
+		enemy.queue_free()
 		
 func start_game():
-	pass
+	game_over_screen.hide()
+	difficulty = 0
+	enemies_killed = 0
+	randomize()
+	spawn_timer.start()
+	difficulty_timer.start()
+	spawn_enemy()
+
+func _on_RestartButton_pressed():
+	start_game()

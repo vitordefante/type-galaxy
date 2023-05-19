@@ -1,16 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Minecraft.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/spaceshooter/Backgrounds/peakpx.jpg" type="Texture" id=4]
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.5, 311.75 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 38
+outline_color = Color( 0.129412, 0.129412, 0.129412, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 30
+font_data = ExtResource( 2 )
+
 [sub_resource type="DynamicFont" id=1]
 size = 34
 extra_spacing_char = 3
 font_data = ExtResource( 2 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8.5, 311.75 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -26,6 +35,12 @@ stretch_mode = 7
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="LoseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoseArea"]
+position = Vector2( -23, 292.75 )
+shape = SubResource( 2 )
 
 [node name="SpawnContainer" type="Node2D" parent="."]
 
@@ -47,13 +62,52 @@ position = Vector2( 1069, 414 )
 [node name="EnemyContainer" type="Node2D" parent="."]
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 4.2
 
 [node name="DifficultyTimer" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 6.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverScreen" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -12.0
+margin_top = -17.0
+margin_right = -12.0
+margin_bottom = -17.0
+rect_scale = Vector2( 1.02023, 1.04 )
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/GameOverScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverScreen/CenterContainer"]
+margin_left = 150.0
+margin_top = 242.0
+margin_right = 860.0
+margin_bottom = 343.0
+custom_constants/separation = 25
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
+margin_right = 710.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 3 )
+text = "DIGITE MAIS RAPIDO! VOCE PERDEU."
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
+margin_top = 64.0
+margin_right = 710.0
+margin_bottom = 101.0
+mouse_filter = 2
+custom_fonts/font = SubResource( 4 )
+text = "JOGAR NOVAMENTE"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -62,15 +116,18 @@ margin_left = 14.0
 margin_top = 12.0
 margin_right = -1.0
 margin_bottom = -15.0
+mouse_filter = 2
 
 [node name="TopRow2" type="CenterContainer" parent="CanvasLayer/VBoxContainer"]
 margin_right = 1009.0
 margin_bottom = 35.0
+mouse_filter = 2
 
 [node name="TopRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/TopRow2"]
 margin_left = 415.0
 margin_right = 594.0
 margin_bottom = 35.0
+mouse_filter = 2
 
 [node name="EnemiesKilledLabel" type="Label" parent="CanvasLayer/VBoxContainer/TopRow2/TopRow"]
 margin_right = 156.0
@@ -90,16 +147,19 @@ text = "0"
 margin_top = 39.0
 margin_right = 1009.0
 margin_bottom = 534.0
+mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 margin_top = 538.0
 margin_right = 1009.0
 margin_bottom = 573.0
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/BottomRow"]
 margin_right = 260.0
 margin_bottom = 35.0
+mouse_filter = 2
 
 [node name="DifficultyLabel" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow/HBoxContainer"]
 margin_right = 237.0
@@ -115,12 +175,7 @@ margin_bottom = 35.0
 custom_fonts/font = SubResource( 1 )
 text = "0"
 
-[node name="LoseArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LoseArea"]
-position = Vector2( -23, 292.75 )
-shape = SubResource( 2 )
-
+[connection signal="body_entered" from="LoseArea" to="." method="_on_LoseArea_body_entered"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
-[connection signal="body_entered" from="LoseArea" to="." method="_on_LoseArea_body_entered"]
+[connection signal="pressed" from="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
