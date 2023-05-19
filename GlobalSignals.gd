@@ -1,4 +1,4 @@
 extends Node
 
 
-signal difficuty_increased(new_difficulty)
+signal difficulty_increased(new_difficulty)

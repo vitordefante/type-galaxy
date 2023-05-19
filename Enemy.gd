@@ -22,12 +22,12 @@ func _physics_process(delta: float) -> void:
 	
 	
 func set_difficulty(difficulty: int):
-	pass
+	handle_difficulty_increased(difficulty)
 		
 
 
 func handle_difficulty_increased(new_difficulty: int):
-	var new_speed = speed + (0.2 * new_difficulty)
+	var new_speed = speed + (0.125 * new_difficulty)
 	speed = clamp(new_speed, speed, 3)
 
 

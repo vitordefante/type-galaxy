@@ -14,7 +14,7 @@ var active_enemy = null
 var current_letter_index: int = -1
 
 #variavel da dificuldade
-var difficulty: int = 1
+var difficulty: int = 0
 
 #spawna um inimogo antes do timeout de 3 segundos
 func _ready() -> void:
@@ -66,8 +66,9 @@ func spawn_enemy():
 	var enemy_instance = Enemy.instance()
 	var spawns = spawn_container.get_children()
 	var index = randi() % spawns.size()
-	enemy_instance.global_position = spawns[index].global_position
 	enemy_container.add_child(enemy_instance)
+	enemy_instance.global_position = spawns[index].global_position
+	enemy_instance.set_difficulty(difficulty)
 	
 
 # emite as mudancas na dificuldade ao decorrer da pontuacao
@@ -76,5 +77,4 @@ func _on_DifficultyTimer_timeout():
 	GlobalSignals.emit_signal("difficulty_increased", difficulty)
 	print("dificuldade aumentada para %d" % difficulty)
 	var new_wait_time = spawn_timer.wait_time - 0.2
-	
 	spawn_timer.wait_time = clamp(new_wait_time, 1, spawn_timer.wait_time)
