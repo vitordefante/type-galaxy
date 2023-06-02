@@ -11,6 +11,10 @@ onready var difficulty_value = $CanvasLayer/VBoxContainer/BottomRow/HBoxContaine
 onready var killed_value = $CanvasLayer/VBoxContainer/TopRow2/TopRow/EnemiesKilledValue
 onready var game_over_screen = $CanvasLayer/GameOverScreen 
 
+#SFX
+var mistype_sound: AudioStreamPlayer
+var success_sound: AudioStreamPlayer
+
 # detecta naves ativas na cena
 var active_enemy = null
 
@@ -25,8 +29,29 @@ var enemies_killed: int = 0
 
 #spawna um inimogo antes do timeout de 3 segundos
 func _ready() -> void:
+	# Load the mistype sound effect
+	mistype_sound = AudioStreamPlayer.new()
+	mistype_sound.stream = preload("res://assets/sfx/wrong_type.wav")
+	add_child(mistype_sound)
+	mistype_sound.volume_db = -10.0
+	
+	# Load the success sound effect
+	success_sound = AudioStreamPlayer.new()
+	success_sound.stream = preload("res://assets/sfx/type_success.wav")
+	add_child(success_sound)
+	success_sound.volume_db = -20.0
+	
 	start_game()
 
+##SFX Functions
+func play_mistype_sound() -> void:
+	# Play the mistype sound effect
+	mistype_sound.play()
+	
+func play_success_sound() -> void:
+	# Play the success sound effect
+	success_sound.play()
+	
 func find_new_active_enemy(typed_character: String):
 	for enemy in enemy_container.get_children():
 		var prompt = enemy.get_prompt()
@@ -50,6 +75,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			var prompt = active_enemy.get_prompt()
 			var next_character = prompt.substr(current_letter_index, 1)
 			if key_typed == next_character:
+				play_success_sound()
 				print ("successfully typed %s" % key_typed)
 				current_letter_index += 1
 				active_enemy.set_next_character(current_letter_index)
@@ -61,6 +87,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					enemies_killed += 1
 					killed_value.text = str(enemies_killed)
 			else:
+				play_mistype_sound()
 				print("Voce digitou errado, letra %s ao invez de %s" % [key_typed, next_character])
 					
 

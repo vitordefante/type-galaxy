@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Minecraft.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/sfx/main_theme.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/spaceshooter/Backgrounds/peakpx.jpg" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -174,6 +175,12 @@ margin_right = 260.0
 margin_bottom = 35.0
 custom_fonts/font = SubResource( 1 )
 text = "0"
+
+[node name="main_theme_music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -11.934
+autoplay = true
+area_mask = 0
 
 [connection signal="body_entered" from="LoseArea" to="." method="_on_LoseArea_body_entered"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
