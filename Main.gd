@@ -39,7 +39,7 @@ func _ready() -> void:
 	success_sound = AudioStreamPlayer.new()
 	success_sound.stream = preload("res://assets/sfx/type_success.wav")
 	add_child(success_sound)
-	success_sound.volume_db = -20.0
+	success_sound.volume_db = -25.0
 	
 	start_game()
 
