@@ -9,11 +9,15 @@ onready var difficulty_timer = $DifficultyTimer
 
 onready var difficulty_value = $CanvasLayer/VBoxContainer/BottomRow/HBoxContainer/DifficultyLabel2
 onready var killed_value = $CanvasLayer/VBoxContainer/TopRow2/TopRow/EnemiesKilledValue
+onready var star_screen = $CanvasLayer/StartScreen
 onready var game_over_screen = $CanvasLayer/GameOverScreen 
 
 #SFX
 var mistype_sound: AudioStreamPlayer
 var success_sound: AudioStreamPlayer
+var kill_sound: AudioStreamPlayer
+
+var isFirstRound = true
 
 # detecta naves ativas na cena
 var active_enemy = null
@@ -41,6 +45,11 @@ func _ready() -> void:
 	add_child(success_sound)
 	success_sound.volume_db = -25.0
 	
+	# Load the kill sound effect
+	kill_sound = AudioStreamPlayer.new()
+	kill_sound.stream = preload("res://assets/sfx/enemy_killed.mp3")
+	add_child(kill_sound)
+	
 	start_game()
 
 ##SFX Functions
@@ -51,6 +60,10 @@ func play_mistype_sound() -> void:
 func play_success_sound() -> void:
 	# Play the success sound effect
 	success_sound.play()
+	
+	# Play the kill sound
+func play_kill_sound() -> void:
+	kill_sound.play()
 	
 func find_new_active_enemy(typed_character: String):
 	for enemy in enemy_container.get_children():
@@ -85,6 +98,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					active_enemy.queue_free()
 					active_enemy = null
 					enemies_killed += 1
+					
 					killed_value.text = str(enemies_killed)
 			else:
 				play_mistype_sound()
@@ -137,5 +151,10 @@ func start_game():
 	difficulty_timer.start()
 	spawn_enemy()
 
-func _on_RestartButton_pressed():
+func _on_RestartButton_pressed() -> void:
+	start_game()
+
+func _on_StartButton_pressed():
+	isFirstRound = false
+	star_screen.hide()
 	start_game()

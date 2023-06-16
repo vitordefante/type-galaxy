@@ -94,6 +94,7 @@ margin_left = 150.0
 margin_top = 242.0
 margin_right = 860.0
 margin_bottom = 343.0
+mouse_filter = 2
 custom_constants/separation = 25
 
 [node name="Label" type="Label" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
@@ -106,9 +107,54 @@ text = "DIGITE MAIS RAPIDO! VOCE PERDEU."
 margin_top = 64.0
 margin_right = 710.0
 margin_bottom = 101.0
-mouse_filter = 2
 custom_fonts/font = SubResource( 4 )
 text = "JOGAR NOVAMENTE"
+
+[node name="StartScreen" type="PanelContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -12.0
+margin_top = -17.0
+margin_right = -12.0
+margin_bottom = -17.0
+rect_scale = Vector2( 1.02023, 1.04 )
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/StartScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StartScreen/CenterContainer"]
+margin_left = 40.0
+margin_top = 74.0
+margin_right = 969.0
+margin_bottom = 511.0
+mouse_filter = 2
+custom_constants/separation = 25
+
+[node name="Label" type="Label" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer"]
+margin_right = 929.0
+margin_bottom = 375.0
+custom_fonts/font = SubResource( 3 )
+text = "Bem vindo ao Type Galaxy!
+
+Um jogo educativo de digitacao, para praticar sua
+gramatica e agilidade com o uso do teclado.
+
+Como Jogar?
+Digite as palavras corretamente, respeitando os
+caracteres especiais e letras maiusculas e 
+minusculas."
+
+[node name="StartButton" type="Button" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer"]
+margin_top = 400.0
+margin_right = 929.0
+margin_bottom = 437.0
+custom_fonts/font = SubResource( 4 )
+text = "INICIAR JOGO"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -186,3 +232,5 @@ area_mask = 0
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
 [connection signal="pressed" from="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartScreen/CenterContainer/VBoxContainer/StartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartScreen/CenterContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
