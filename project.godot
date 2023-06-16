@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "GifReader",
+"language": "GDScript",
+"path": "res://addons/gif-importer/GIFReader.gd"
+} ]
+_global_script_class_icons={
+"GifReader": ""
+}
+
 [application]
 
 config/name="Type-galaxy"
@@ -18,6 +28,10 @@ config/icon="res://icon.png"
 
 ListaPalavras="*res://ListaPalavras.gd"
 GlobalSignals="*res://GlobalSignals.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gif-importer/plugin.cfg" )
 
 [gui]
 

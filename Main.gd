@@ -97,8 +97,8 @@ func _unhandled_input(event: InputEvent) -> void:
 					current_letter_index = -1
 					active_enemy.queue_free()
 					active_enemy = null
+					var explosion = load("res://Enemy.tscn").instance()
 					enemies_killed += 1
-					
 					killed_value.text = str(enemies_killed)
 			else:
 				play_mistype_sound()
@@ -157,4 +157,3 @@ func _on_RestartButton_pressed() -> void:
 func _on_StartButton_pressed():
 	isFirstRound = false
 	star_screen.hide()
-	start_game()

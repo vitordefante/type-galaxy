@@ -1,0 +1,15 @@
+[remap]
+
+importer="gif.animated.texture.plugin"
+type="SpriteFrames"
+path="res://.import/explotion-explode.gif-a8f62f49f2e4d428913d8618c61e2943.tres"
+
+[deps]
+
+source_file="res://assets/explotion-explode.gif"
+dest_files=[ "res://.import/explotion-explode.gif-a8f62f49f2e4d428913d8618c61e2943.tres" ]
+
+[params]
+
+Filter=false
+MipMaps=false
